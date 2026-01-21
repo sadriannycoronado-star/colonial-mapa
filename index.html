@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Map – Colonial Zone</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      padding: 15px;
+    }
+    #map {
+      height: 500px;
+      width: 90%;
+      margin: 0 auto 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>Hidden Corners of the Colonial Zone</h1>
+  <div style="display:flex; gap:20px; width:90%; margin:0 auto 20px auto;">
+    <div id="map" style="flex:2;"></div>
+    <div style="flex:1; background:#fff; padding:15px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+      <h2>Walking Directions</h2>
+      <ol>
+        <li><b>Start at the Cathedral Side Entrance.</b> This is our meeting point.</li>
+        <li><b>Cross the street to Columbus Park.</b> Walk about 1 minute to the statue.</li>
+        <li><b>Walk to Arzobispo Meriño Street.</b> It is just one corner away.</li>
+        <li><b>Cross the street to the Royal Houses Museum.</b> Less than 2 minutes walking.</li>
+        <li><b>Walk one block to Las Damas Street.</b> This is the final stop.</li>
+      </ol>
+      <p><b>Total walking time:</b> about 5 minutes.</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Create the map centered on the Colonial Zone
+    const map = L.map('map').setView([18.4722, -69.8844], 16);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Very close places around Columbus Park and the Cathedral
+    const places = [
+      {
+        name: "Cathedral of Santa María – Side Entrance",
+        coords: [18.4729, -69.8846],
+        description: "The oldest cathedral in the Americas. From this side entrance, you can admire the stone details and the religious history of the city."
+      },
+      {
+        name: "Columbus Park – Columbus Statue",
+        coords: [18.4733, -69.8849],
+        description: "This small park is the heart of the Colonial Zone and a perfect meeting point for visitors."
+      },
+      {
+        name: "Arzobispo Meriño Street – Corner",
+        coords: [18.4731, -69.8854],
+        description: "One of the main pedestrian streets, full of cafés, shops, and local life."
+      },
+      {
+        name: "Royal Houses Museum – Front View",
+        coords: [18.4742, -69.8831],
+        description: "This historic building was used by the Spanish government and is just across the street from the park."
+      },
+      {
+        name: "Las Damas Street – First Section",
+        coords: [18.4739, -69.8836],
+        description: "The first street built in the New World, only one block away from the cathedral."
+      }
+    ];
+
+    // Add markers
+
+    places.forEach(place => {
+      L.marker(place.coords)
+        .addTo(map)
+        .bindPopup(`<b>${place.name}</b><br>${place.description}`);
+    });
+  </script>
+</body>
+</html>
